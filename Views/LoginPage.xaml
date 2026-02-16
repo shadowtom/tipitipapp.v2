@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:tipitipapp.ViewModels"
+             xmlns:views="clr-namespace:tipitipapp.Views"
+             x:Class="tipitipapp.Views.LoginPage"
+             Title="Login">
+
+    <ContentPage.BindingContext>
+        <viewModels:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <VerticalStackLayout 
+            Spacing="20" 
+            Padding="30" 
+            VerticalOptions="Center">
+
+            <Label 
+                Text="Welcome Back!" 
+                FontSize="32" 
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <Label 
+                Text="Please sign in to continue"
+                FontSize="16"
+                TextColor="Gray"
+                HorizontalOptions="Center" />
+
+            <Frame 
+                Padding="0"
+                BorderColor="LightGray"
+                CornerRadius="8">
+                <Entry 
+                    x:Name="EmailEntry"
+                    Text="{Binding Email}"
+                    Placeholder="Email"
+                    Keyboard="Email"
+                    ReturnType="Next"
+                    Completed="OnEmailCompleted" />
+            </Frame>
+
+            <Frame 
+                Padding="0"
+                BorderColor="LightGray"
+                CornerRadius="8">
+                <Entry 
+                    x:Name="PasswordEntry"
+                    Text="{Binding Password}"
+                    Placeholder="Password"
+                    IsPassword="True"
+                    ReturnType="Done"
+                    Completed="OnPasswordCompleted" />
+            </Frame>
+
+            <Button 
+                Text="Login"
+                Command="{Binding LoginCommand}"
+                IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                BackgroundColor="#512BD4"
+                TextColor="White"
+                CornerRadius="8"
+                HeightRequest="50" />
+
+            <Button 
+                Text="Register"
+                Command="{Binding RegisterCommand}"
+                IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                BackgroundColor="Transparent"
+                TextColor="#512BD4"
+                BorderColor="#512BD4"
+                BorderWidth="1"
+                CornerRadius="8"
+                HeightRequest="50" />
+
+            <Label 
+                Text="{Binding Message}"
+                HorizontalOptions="Center"
+                TextColor="{Binding Message, Converter={StaticResource MessageColorConverter}}"
+                IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}" />
+
+            <ActivityIndicator 
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                Color="#512BD4" />
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

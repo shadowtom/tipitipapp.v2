@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="tipitipapp.Views.RegisterPage"
+             xmlns:local="clr-namespace:tipitipapp.Behaviors"
+             Title="Create Account"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="30" VerticalOptions="Center">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="8" Margin="0,0,0,20">
+                <Label Text="Create Account" 
+                       FontSize="32" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+
+                <Label Text="Sign up to get started" 
+                       FontSize="16"
+                       TextColor="Gray"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Email Field -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Email" FontAttributes="Bold" />
+                <Entry x:Name="EmailEntry"
+                       Text="{Binding Email}"
+                       Placeholder="Enter your email"
+                       Keyboard="Email"
+                       ReturnType="Next"
+                       Completed="OnEmailCompleted">
+                    <Entry.Behaviors>
+                        <local:EventToCommandBehavior EventName="TextChanged" 
+                                                      Command="{Binding ValidateEmailCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="{Binding EmailError}"
+                       TextColor="Red"
+                       FontSize="12"
+                       IsVisible="{Binding IsEmailValid, Converter={StaticResource InverseBoolConverter}}" />
+            </VerticalStackLayout>
+
+            <!-- First Name Field -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="First Name" FontAttributes="Bold" />
+                <Entry x:Name="FirstNameEntry"
+                       Text="{Binding FirstName}"
+                       Placeholder="Enter your first name"
+                       ReturnType="Next"
+                       Completed="OnFirstNameCompleted" />
+                <Label Text="{Binding FirstNameError}"
+                       TextColor="Red"
+                       FontSize="12"
+                       IsVisible="{Binding IsFirstNameValid, Converter={StaticResource InverseBoolConverter}}" />
+            </VerticalStackLayout>
+
+            <!-- Last Name Field -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Last Name" FontAttributes="Bold" />
+                <Entry x:Name="LastNameEntry"
+                       Text="{Binding LastName}"
+                       Placeholder="Enter your last name"
+                       ReturnType="Next"
+                       Completed="OnLastNameCompleted" />
+                <Label Text="{Binding LastNameError}"
+                       TextColor="Red"
+                       FontSize="12"
+                       IsVisible="{Binding IsLastNameValid, Converter={StaticResource InverseBoolConverter}}" />
+            </VerticalStackLayout>
+
+            <!-- Phone Number Field (Optional) -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Phone Number (Optional)" FontAttributes="Bold" />
+                <Entry x:Name="PhoneNumberEntry"
+                       Text="{Binding PhoneNumber}"
+                       Placeholder="Enter your phone number"
+                       Keyboard="Telephone"
+                       ReturnType="Next"
+                       Completed="OnPhoneCompleted" />
+            </VerticalStackLayout>
+
+            <!-- Password Field -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Password" FontAttributes="Bold" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Entry x:Name="PasswordEntry"
+                           Grid.Column="0"
+                           Text="{Binding Password}"
+                           Placeholder="Enter your password"
+                           IsPassword="{Binding ShowPassword, Converter={StaticResource InverseBoolConverter}}"
+                           ReturnType="Next"
+                           Completed="OnPasswordCompleted" />
+
+                    <Button Grid.Column="1"
+                            Text="{Binding ShowPassword, Converter={StaticResource BoolToEyeIconConverter}}"
+                            BackgroundColor="Transparent"
+                            Command="{Binding ToggleShowPasswordCommand}"
+                            WidthRequest="40" />
+                </Grid>
+
+                <!-- Password Strength Indicator -->
+                <ProgressBar Progress="{Binding PasswordStrength}"
+                             HeightRequest="4"
+                             Margin="0,4" />
+
+                <Label Text="{Binding PasswordError}"
+                       TextColor="Red"
+                       FontSize="12"
+                       IsVisible="{Binding IsPasswordValid, Converter={StaticResource InverseBoolConverter}}" />
+            </VerticalStackLayout>
+
+            <!-- Confirm Password Field -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Confirm Password" FontAttributes="Bold" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Entry x:Name="ConfirmPasswordEntry"
+                           Grid.Column="0"
+                           Text="{Binding ConfirmPassword}"
+                           Placeholder="Confirm your password"
+                           IsPassword="{Binding ShowConfirmPassword, Converter={StaticResource InverseBoolConverter}}"
+                           ReturnType="Done"
+                           Completed="OnConfirmPasswordCompleted" />
+
+                    <Button Grid.Column="1"
+                            Text="{Binding ShowConfirmPassword, Converter={StaticResource BoolToEyeIconConverter}}"
+                            BackgroundColor="Transparent"
+                            Command="{Binding ToggleShowConfirmPasswordCommand}"
+                            WidthRequest="40" />
+                </Grid>
+
+                <Label Text="{Binding ConfirmPasswordError}"
+                       TextColor="Red"
+                       FontSize="12"
+                       IsVisible="{Binding IsConfirmPasswordValid, Converter={StaticResource InverseBoolConverter}}" />
+            </VerticalStackLayout>
+
+            <!-- Terms and Conditions -->
+            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                <CheckBox IsChecked="{Binding AcceptTerms}" />
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="I agree to the " />
+                            <Span Text="Terms and Conditions"
+                                  TextColor="{StaticResource PrimaryColor}">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowTermsCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </HorizontalStackLayout>
+
+            <!-- Message Display -->
+            <Label Text="{Binding Message}"
+                   HorizontalOptions="Center"
+                   TextColor="{Binding MessageColor}"
+                   FontSize="14">
+                <Label.IsVisible>
+                    <Binding Path="Message" Converter="{StaticResource StringNotEmptyConverter}" />
+                </Label.IsVisible>
+            </Label>
+
+            <!-- Register Button -->
+            <Button Text="Create Account"
+                    Command="{Binding RegisterCommand}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                    BackgroundColor="{StaticResource PrimaryColor}"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HeightRequest="50"
+                    FontAttributes="Bold" />
+
+            <!-- Activity Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource PrimaryColor}" />
+
+            <!-- Login Link -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                <Label Text="Already have an account?" TextColor="Gray" />
+                <Label Text="Sign In"
+                       TextColor="{StaticResource PrimaryColor}"
+                       FontAttributes="Bold">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToLoginCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

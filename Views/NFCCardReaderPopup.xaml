@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="tipitipapp.Views.NFCCardReaderPopup"
+               Size="350,500"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+    
+    <Border StrokeThickness="1"
+            Stroke="{StaticResource PrimaryColor}"
+            StrokeShape="RoundRectangle 20"
+            BackgroundColor="White"
+            Padding="20">
+        
+        <ScrollView>
+            <VerticalStackLayout Spacing="15" 
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center">
+                
+                <!-- NFC Icon -->
+                <Image Source="nfc_icon.png"
+                       WidthRequest="60"
+                       HeightRequest="60"
+                       Aspect="AspectFit" />
+                
+                <!-- Title -->
+                <Label Text="NFC Card Reader"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource PrimaryColor}"
+                       HorizontalOptions="Center" />
+                
+                <!-- Amount Display -->
+                <Label Text="{Binding Amount, StringFormat='Amount: ${0:F2}'}"
+                       FontSize="18"
+                       TextColor="Black"
+                       HorizontalOptions="Center" />
+                
+                <!-- Status Message -->
+                <Label Text="{Binding StatusMessage}"
+                       FontSize="14"
+                       TextColor="Gray"
+                       HorizontalOptions="Center" />
+                
+                <!-- Progress Indicator -->
+                <ActivityIndicator IsRunning="{Binding IsReading}"
+                                   Color="{StaticResource PrimaryColor}"
+                                   IsVisible="{Binding IsReading}"
+                                   WidthRequest="40"
+                                   HeightRequest="40" />
+                
+                <!-- NFC Animation -->
+                <HorizontalStackLayout Spacing="10" 
+                                       HorizontalOptions="Center"
+                                       IsVisible="{Binding IsReading}">
+                    <BoxView WidthRequest="10" 
+                            HeightRequest="10" 
+                            Color="{StaticResource PrimaryColor}"
+                            CornerRadius="5">
+                        <BoxView.Behaviors>
+                            <toolkit:AnimationBehavior 
+                                AnimationType="Pulse" 
+                                RepeatForever="True" />
+                        </BoxView.Behaviors>
+                    </BoxView>
+                    <BoxView WidthRequest="10" 
+                            HeightRequest="10" 
+                            Color="{StaticResource PrimaryColor}"
+                            CornerRadius="5">
+                        <BoxView.Behaviors>
+                            <toolkit:AnimationBehavior 
+                                AnimationType="Pulse" 
+                                RepeatForever="True"
+                                Delay="500" />
+                        </BoxView.Behaviors>
+                    </BoxView>
+                    <BoxView WidthRequest="10" 
+                            HeightRequest="10" 
+                            Color="{StaticResource PrimaryColor}"
+                            CornerRadius="5">
+                        <BoxView.Behaviors>
+                            <toolkit:AnimationBehavior 
+                                AnimationType="Pulse" 
+                                RepeatForever="True"
+                                Delay="1000" />
+                        </BoxView.Behaviors>
+                    </BoxView>
+                </HorizontalStackLayout>
+                
+                <!-- Card Data Display (when complete) -->
+                <Frame IsVisible="{Binding IsComplete}"
+                       BorderColor="LightGray"
+                       CornerRadius="10"
+                       Padding="10"
+                       BackgroundColor="#F5F5F5">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Card Information"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource PrimaryColor}"
+                               HorizontalOptions="Center" />
+                        
+                        <Label Text="{Binding CardInfoDisplay}"
+                               FontSize="12"
+                               TextColor="Black"
+                               LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+                </Frame>
+                
+                <!-- Buttons -->
+                <FlexLayout Direction="Row" 
+                           JustifyContent="Center"
+                           Wrap="Wrap"
+                           AlignItems="Center">
+                    
+                    <!-- Cancel Button (while reading) -->
+                    <Button Text="Cancel"
+                            Command="{Binding CancelCommand}"
+                            BackgroundColor="Gray"
+                            TextColor="White"
+                            CornerRadius="8"
+                            HeightRequest="40"
+                            WidthRequest="150"
+                            Margin="5"
+                            IsVisible="{Binding IsReading}" />
+                    
+                    <!-- Retry Button (on failure) -->
+                    <Button Text="Retry"
+                            Command="{Binding RetryCommand}"
+                            BackgroundColor="Orange"
+                            TextColor="White"
+                            CornerRadius="8"
+                            HeightRequest="40"
+                            WidthRequest="150"
+                            Margin="5"
+                            IsVisible="{Binding IsComplete and not IsSuccess}" />
+                    
+                    <!-- Close Button (when complete) -->
+                    <Button Text="Close"
+                            Command="{Binding CloseCommand}"
+                            BackgroundColor="{StaticResource PrimaryColor}"
+                            TextColor="White"
+                            CornerRadius="8"
+                            HeightRequest="40"
+                            WidthRequest="150"
+                            Margin="5"
+                            IsVisible="{Binding IsComplete}" />
+                </FlexLayout>
+                
+                <!-- Success/Failure Icon -->
+                <Image Source="{Binding ResultIcon}"
+                       WidthRequest="40"
+                       HeightRequest="40"
+                       Aspect="AspectFit"
+                       IsVisible="{Binding IsComplete}" />
+                
+            </VerticalStackLayout>
+        </ScrollView>
+    </Border>
+</toolkit:Popup>
