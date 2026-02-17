@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using tipitipapp.Application.Interfaces;
 using tipitipapp.domain.Entities.Models;
 using tipitipapp.domain.EventArguments;
 using tipitipapp.domain.Interfaces.Services;
-using tipitipapp.Domain.Models;
+using tipitipapp.Interfaces.Services;
+using tipitipapp.Interfaces.Services;
 using tipitipapp.Interfaces.Services;
 
 namespace tipitipapp.ViewModels;
@@ -37,7 +37,7 @@ public class MainPageViewModel : INotifyPropertyChanged, IDisposable
 
         // Initialize commands
         LogoutCommand = new Command(async () => await ExecuteLogoutCommand(), CanExecuteLogout);
-        QuickTipCommand = new Command<string>(async (amount) => await ExecuteQuickTipCommand(amount), CanExecuteTransaction);
+        QuickTipCommand = new Command<string>(async (amount) => await ExecuteQuickTipCommand(amount), (s) => CanExecuteTransaction());
         CollectTipCommand = new Command(async () => await ExecuteCollectTipCommand(), CanExecuteTransaction);
         AmountChangedCommand = new Command(OnAmountChanged);
         ClearAmountCommand = new Command(ExecuteClearAmount);
@@ -409,7 +409,7 @@ public class MainPageViewModel : INotifyPropertyChanged, IDisposable
 
             var result = await _popupService.ShowNFCPopupAsync(amount, transactionType);
 
-            if (result.Success && result.CardData != null)
+            if (result != null && result.Success && result.CardData != null)
             {
                 // Transaction successful
                 CurrentTipAmount = amount;

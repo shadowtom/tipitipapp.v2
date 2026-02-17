@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using CommunityToolkit.Maui;
 using tipitipapp.Extention;
 
 namespace tipitipapp
@@ -24,6 +25,7 @@ namespace tipitipapp
 
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

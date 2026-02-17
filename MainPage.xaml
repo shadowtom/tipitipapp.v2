@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:tipitipapp.Behaviors"
              xmlns:viewModels="clr-namespace:tipitipapp.ViewModels"
              x:Class="tipitipapp.MainPage"
              Title="TipIt"
@@ -81,10 +82,9 @@
                                TextColor="{StaticResource PrimaryColor}"
                                HorizontalTextAlignment="Center"
                                VerticalOptions="Center"
-                               ReturnType="Done"
-                               Completed="OnAmountCompleted">
+                               ReturnType="Done">
                             <Entry.Behaviors>
-                                <toolkit:EventToCommandBehavior 
+                                <behaviors:EventToCommandBehavior 
                                     EventName="TextChanged" 
                                     Command="{Binding AmountChangedCommand}" />
                             </Entry.Behaviors>

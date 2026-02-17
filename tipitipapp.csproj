@@ -99,8 +99,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\tipitipapp.application\tipitipapp.application.csproj" />
-	  <ProjectReference Include="..\tipitipapp.infrastructure\tipitipapp.infrastructure.csproj" />
+  <ProjectReference Include="..\tipitipapp.application\tipitipapp.application.csproj" />
+  <ProjectReference Include="..\tipitipapp.infrastructure\tipitipapp.infrastructure.csproj" />
+  <ProjectReference Include="..\tipitipapp.domain\tipitipapp.domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

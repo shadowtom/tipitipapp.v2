@@ -57,35 +57,15 @@
                     <BoxView WidthRequest="10" 
                             HeightRequest="10" 
                             Color="{StaticResource PrimaryColor}"
-                            CornerRadius="5">
-                        <BoxView.Behaviors>
-                            <toolkit:AnimationBehavior 
-                                AnimationType="Pulse" 
-                                RepeatForever="True" />
-                        </BoxView.Behaviors>
-                    </BoxView>
+                            CornerRadius="5" />
                     <BoxView WidthRequest="10" 
                             HeightRequest="10" 
                             Color="{StaticResource PrimaryColor}"
-                            CornerRadius="5">
-                        <BoxView.Behaviors>
-                            <toolkit:AnimationBehavior 
-                                AnimationType="Pulse" 
-                                RepeatForever="True"
-                                Delay="500" />
-                        </BoxView.Behaviors>
-                    </BoxView>
+                            CornerRadius="5" />
                     <BoxView WidthRequest="10" 
                             HeightRequest="10" 
                             Color="{StaticResource PrimaryColor}"
-                            CornerRadius="5">
-                        <BoxView.Behaviors>
-                            <toolkit:AnimationBehavior 
-                                AnimationType="Pulse" 
-                                RepeatForever="True"
-                                Delay="1000" />
-                        </BoxView.Behaviors>
-                    </BoxView>
+                            CornerRadius="5" />
                 </HorizontalStackLayout>
                 
                 <!-- Card Data Display (when complete) -->
