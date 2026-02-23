@@ -1,0 +1,10 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+/src/.vs
+/src/tipitipapp.application
+/src/tipitipapp.domain/bin/Debug/net9.0
+/src/tipitipapp.domain/obj
+/src/tipitipapp.infrastructure/obj
+/src/tipitipapp.infrastructure/bin/Debug/net9.0

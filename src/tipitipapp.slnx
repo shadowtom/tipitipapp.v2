@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="tipitipapp.application/tipitipapp.application.csproj" />
+  <Project Path="tipitipapp.domain/tipitipapp.domain.csproj" />
+  <Project Path="tipitipapp.infrastructure/tipitipapp.infrastructure.csproj" />
+  <Project Path="tipitipapp/tipitipapp.csproj" />
+</Solution>
