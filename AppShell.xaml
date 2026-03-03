@@ -8,7 +8,8 @@
     Title="tipitipapp">
 
     <ShellContent Title="Login" 
-                  ContentTemplate="{DataTemplate views:LoginPage}" />
+                  ContentTemplate="{DataTemplate views:LoginPage}" 
+                  Route="SignIn"/>
     <ShellContent Title="Register" 
                   ContentTemplate="{DataTemplate views:RegisterPage}"
                   Route="RegisterPage" />

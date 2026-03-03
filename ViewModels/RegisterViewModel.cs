@@ -7,13 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using tipitipapp.domain.Entities.DTOs;
+using tipitipapp.domain.Interfaces.Services;
 using tipitipapp.domain.Services;
 
 namespace tipitipapp.ViewModels
 {
     public class RegisterViewModel : INotifyPropertyChanged
     {
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
         // Registration fields
         private string _email = string.Empty;
@@ -33,9 +34,9 @@ namespace tipitipapp.ViewModels
         private Color _messageColor = Colors.Red;
         private double _passwordStrength;
 
-        public RegisterViewModel(AuthService authService)
+        public RegisterViewModel(IServiceProvider serviceProvider)
         {
-            _authService = authService;
+            _authService = serviceProvider.GetRequiredService<IAuthService>();
 
             // Initialize commands
             RegisterCommand = new Command(async () => await ExecuteRegisterCommand());
@@ -490,7 +491,7 @@ namespace tipitipapp.ViewModels
 
         private async Task ExecuteGoToLoginCommand()
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            await Shell.Current.GoToAsync("//SignIn");
         }
 
         private async Task ClearForm()

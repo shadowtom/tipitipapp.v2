@@ -24,10 +24,10 @@ namespace tipitipapp.ViewModels
 
         public LoginViewModel(IServiceProvider serviceProvider)
         {
-            _authService = serviceProvider.GetRequiredService<AuthService>();
+            _authService = serviceProvider.GetRequiredService<IAuthService>();
 
             LoginCommand = new Command(async () => await LoginAsync());
-            RegisterCommand = new Command(async () => await RegisterAsync());
+            RegisterCommand = new Command(async () => await Shell.Current.GoToAsync("//RegisterPage"));
         }
 
         public LoginViewModel()
@@ -35,7 +35,7 @@ namespace tipitipapp.ViewModels
             // Inicialización para evitar CS8618
             _authService = null!;
             LoginCommand = new Command(async () => await LoginAsync());
-            RegisterCommand = new Command(async () => await RegisterAsync());
+            RegisterCommand = new Command(async () => await Shell.Current.GoToAsync("//RegisterPage"));
         }
 
         public string Email
